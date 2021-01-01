@@ -1,5 +1,6 @@
 const digitButtons = document.querySelectorAll('.digit');
 const operatorButtons = document.querySelectorAll('.operator');
+const equalsButton = document.querySelector('#equals');
 const textArea = document.querySelector('#text-area');
 const clearButton = document.querySelector('#clear');
 
@@ -12,58 +13,77 @@ const operators = {
 
 // const operatorStrings = ['plus', 'minus', 'multiply', 'divide'];
 
-let currentNumber = '0';
-let tokens = [];
+let firstNumber = null;
+let currentNumber = '';
+let currentOperator = null;
+// let tokens = [];
 
-textArea.textContent = currentNumber;
-
-clearButton.addEventListener('click', () => {
-	tokens = [];
-	textArea.textContent = '0';
-})
+textArea.textContent = '0';
 
 digitButtons.forEach(digitButton => digitButton.addEventListener('click', () => {
-	// if currently just 0, we want to replace it with whatever user is inputting:
-	if (currentNumber === '0') {
-		currentNumber = digitButton.textContent;
-	}  else {
-		currentNumber += digitButton.textContent;
-	}
-
+	currentNumber += digitButton.textContent;
 	textArea.textContent = currentNumber;
 }));
 
 operatorButtons.forEach(operatorButton => operatorButton.addEventListener('click', () => {
-
-	// first we resolve the first operation
-	if (tokens.length === 2) {
-		let result = operate(
-			parseFloat(tokens[0]),
+	
+	// we resolve the pending operation (if any)
+	if (currentOperator) {
+		firstNumber = operate(
+			parseFloat(firstNumber),
 			parseFloat(currentNumber),
-			tokens[1]
+			currentOperator
 		);
-		
-		// restart with the first number as the result of previous operation
-		tokens = [];
-		tokens.push(result);
-		textArea.textContent = result;
-	} else {
-		tokens.push(currentNumber);
+		textArea.textContent = firstNumber;
+		currentOperator = null;
+	} else if (!firstNumber) {
+		// check if firstNumber hasn't already been set by an equals press
+		firstNumber = currentNumber;
 	}
 
-	tokens.push(operatorButton.id);
-	currentNumber = '0'
-	console.log(tokens);
+	currentOperator = operatorButton.id;
+	currentNumber = '';
 }));
 
-function processToken(button) {
-	if (button.classList.contains('operator')) {
+// TODO: this is incredibly redundant, especially in comparison to the operator logic
+equalsButton.addEventListener('click', () => {
+	/*
+	Three cases: 
+		1. equal is pressed with no current operator
+		2. equal is pressed right after operator (without second number) 
+		3. equal is pressed right after num op num sequence
+	*/
 
-		tokens.push(button.id);
-	} else {
-		tokens.push(button.textContent);
+	if (!currentOperator) {
+		// do nothing
+		// TODO: maybe trigger a visual signal that equal was pressed with no result
+	} else if (currentOperator && currentNumber === '') {
+		firstNumber = operate(
+			parseFloat(firstNumber),
+			parseFloat(firstNumber),
+			currentOperator
+		);
+		textArea.textContent = firstNumber;
+		currentOperator = null;
+	} else if (!(currentNumber === '')) {
+		firstNumber = operate(
+			parseFloat(firstNumber),
+			parseFloat(currentNumber),
+			currentOperator
+		);
+		textArea.textContent = firstNumber;
+		currentOperator = null;
 	}
-}
+
+	currentNumber = '';
+});
+	
+clearButton.addEventListener('click', () => {
+	firstNumber = null;
+	currentNumber = '';
+	currentOperator = null;
+	textArea.textContent = '0';
+})
 
 function operate(a, b, operator) {
 	return operators[operator](a, b);
