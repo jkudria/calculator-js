@@ -86,5 +86,5 @@ clearButton.addEventListener('click', () => {
 })
 
 function operate(a, b, operator) {
-	return operators[operator](a, b);
+	return parseFloat(operators[operator](a, b)).toFixed(5).replace('.00000', '');
 }
