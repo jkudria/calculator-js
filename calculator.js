@@ -34,7 +34,23 @@ digitButtons.forEach(digitButton => digitButton.addEventListener('click', () => 
 }));
 
 operatorButtons.forEach(operatorButton => operatorButton.addEventListener('click', () => {
-	tokens.push(currentNumber);
+
+	// first we resolve the first operation
+	if (tokens.length === 2) {
+		let result = operate(
+			parseFloat(tokens[0]),
+			parseFloat(currentNumber),
+			tokens[1]
+		);
+		
+		// restart with the first number as the result of previous operation
+		tokens = [];
+		tokens.push(result);
+		textArea.textContent = result;
+	} else {
+		tokens.push(currentNumber);
+	}
+
 	tokens.push(operatorButton.id);
 	currentNumber = '0'
 	console.log(tokens);
