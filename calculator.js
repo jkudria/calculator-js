@@ -10,12 +10,12 @@ const operators = {
 	divide: (a, b) => a / b,
 };
 
-const operatorStrings = ['plus', 'minus', 'multiply', 'divide'];
-console.log(typeof operatorStrings);
+// const operatorStrings = ['plus', 'minus', 'multiply', 'divide'];
 
+let currentNumber = '0';
 let tokens = [];
 
-textArea.textContent = '0';
+textArea.textContent = currentNumber;
 
 clearButton.addEventListener('click', () => {
 	tokens = [];
@@ -24,23 +24,19 @@ clearButton.addEventListener('click', () => {
 
 digitButtons.forEach(digitButton => digitButton.addEventListener('click', () => {
 	// if currently just 0, we want to replace it with whatever user is inputting:
-	console.log(tokens);
-	console.log(isNaN(tokens[tokens.length - 1]));
-	if (textArea.textContent === '0') {
-		textArea.textContent = digitButton.textContent;
-	} else if (operatorStrings.includes(tokens[tokens.length - 1])) {
-		// if we just pressed an operator, we start a new number:
-		textArea.textContent = digitButton.textContent;
-	} else {
-		textArea.textContent += digitButton.textContent;
+	if (currentNumber === '0') {
+		currentNumber = digitButton.textContent;
+	}  else {
+		currentNumber += digitButton.textContent;
 	}
 
-	// console.log(textArea.textContent);
+	textArea.textContent = currentNumber;
 }));
 
 operatorButtons.forEach(operatorButton => operatorButton.addEventListener('click', () => {
-	tokens.push(textArea.textContent);
+	tokens.push(currentNumber);
 	tokens.push(operatorButton.id);
+	currentNumber = '0'
 	console.log(tokens);
 }));
 
@@ -56,7 +52,3 @@ function processToken(button) {
 function operate(a, b, operator) {
 	return operators[operator](a, b);
 }
-
-// console.log(operate(5, 6, 'divide'));
-
-5
