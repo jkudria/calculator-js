@@ -15,7 +15,7 @@ const operators = {
 let firstNumber = null;
 let currentNumber = '';
 let currentOperator = null;
-textArea.textContent = '0';
+updateDisplay(0);
 
 digitButtons.forEach(digitButton => digitButton.addEventListener('click', () => {
 	if (currentOperator === 'equals') {
@@ -34,7 +34,7 @@ digitButtons.forEach(digitButton => digitButton.addEventListener('click', () => 
 		currentNumber += digitButton.textContent;
 	}
 
-	textArea.textContent = currentNumber;
+	updateDisplay(currentNumber);
 }));
 
 operatorButtons.forEach(operatorButton => operatorButton.addEventListener('click', () => {
@@ -78,7 +78,7 @@ signButton.addEventListener('click', () => {
 	
 clearButton.addEventListener('click', () => {
 	clear();
-	textArea.textContent = '0';
+	updateDisplay(0);
 })
 
 function equals() {
