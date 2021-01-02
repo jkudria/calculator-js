@@ -1,6 +1,7 @@
 # JS Calculator
 
 Based on [this lesson](https://www.theodinproject.com/courses/foundations/lessons/calculator) from The Odin Project
+
 Live preview [here](https://jkudria.github.io/calculator-js/)
 
 ## TODO
