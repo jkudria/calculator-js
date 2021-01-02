@@ -1,5 +1,6 @@
 const digitButtons = document.querySelectorAll('.digit');
 const operatorButtons = document.querySelectorAll('.operator');
+const percentButton = document.querySelector('#percent');
 const signButton = document.querySelector('#sign');
 const clearButton = document.querySelector('#clear');
 const textArea = document.querySelector('#text-area');
@@ -55,12 +56,22 @@ operatorButtons.forEach(operatorButton => operatorButton.addEventListener('click
 	currentNumber = '';
 }));
 
-signButton.addEventListener('click', () => {
+percentButton.addEventListener('click', () => {
 	if (currentNumber) {
-		currentNumber = (-1 * parseFloat(currentNumber)).toString();
+		currentNumber = currentNumber / 100;
 		updateDisplay(currentNumber);
 	} else if (firstNumber) {
-		firstNumber = (-1 * parseFloat(firstNumber)).toString();
+		firstNumber = parseFloat(firstNumber) / 100;
+		updateDisplay(firstNumber);
+	}
+});
+
+signButton.addEventListener('click', () => {
+	if (currentNumber) {
+		currentNumber = -1 * parseFloat(currentNumber);
+		updateDisplay(currentNumber);
+	} else if (firstNumber) {
+		firstNumber = -1 * parseFloat(firstNumber);
 		updateDisplay(firstNumber);
 	}
 });
