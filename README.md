@@ -13,8 +13,9 @@ Based on [lesson](https://www.theodinproject.com/courses/foundations/lessons/cal
 * [x] better to transmit buttons -> js var -> text area, or buttons -> text area -> js var?
 	* ended up modifying state in js and then transmitting that to text are (i.e. second option)
 * [ ] some visual indication when equal button pressed (e.g. see macOS calculator)
-* [ ] highlight operator button to show that its the "active" operator
+* [x] highlight operator button to show that its the "active" operator
 * [x] floating point support (i.e. can enter decimal, and properly displaying decimal w/ leading 0)
 * [x] BUG: everything should be cleared if start typing new number right after equals
 * [x] replace all display updates with function
 * [ ] pressing equals repeatedly should perform last operation with each result as firstNumber
+* [ ] refactor: each button has event listener -> processButton, updateDisplay (??)

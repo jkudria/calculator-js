@@ -39,6 +39,10 @@ digitButtons.forEach(digitButton => digitButton.addEventListener('click', () => 
 
 operatorButtons.forEach(operatorButton => operatorButton.addEventListener('click', () => {
 	
+	if (Object.keys(operators).includes(operatorButton.id)) {
+		operatorButton.style.border = 'solid #333 2px';
+	}
+	
 	if (operatorButton.id === 'equals') {
 		equals();
 	} else if (Object.keys(operators).includes(currentOperator)) {
@@ -110,6 +114,7 @@ function equals() {
 }
 
 function clear() {
+	document.getElementById(currentOperator).style.border = '';
 	firstNumber = null;
 	currentNumber = '';
 	currentOperator = null;
@@ -120,6 +125,7 @@ function updateDisplay(value) {
 }
 
 function operate(a, b, operator) {
+	document.getElementById(operator).style.border = '';
 	firstNumber = Number(operators[operator](a, b).toFixed(5));
 	updateDisplay(firstNumber);
 	currentOperator = null;
