@@ -14,5 +14,7 @@ Based on [lesson](https://www.theodinproject.com/courses/foundations/lessons/cal
 	* ended up modifying state in js and then transmitting that to text are (i.e. second option)
 * [ ] some visual indication when equal button pressed (e.g. see macOS calculator)
 * [ ] highlight operator button to show that its the "active" operator
-* [ ] floating point support (i.e. can enter decimal, and properly displaying decimal w/ leading 0)
+* [x] floating point support (i.e. can enter decimal, and properly displaying decimal w/ leading 0)
 * [x] BUG: everything should be cleared if start typing new number right after equals
+* [ ] replace all display updates with function
+* [ ] pressing equals repeatedly should perform last operation with each result as firstNumber

@@ -1,6 +1,5 @@
 const digitButtons = document.querySelectorAll('.digit');
 const operatorButtons = document.querySelectorAll('.operator');
-// const equalsButton = document.querySelector('#equals');
 const signButton = document.querySelector('#sign');
 const clearButton = document.querySelector('#clear');
 const textArea = document.querySelector('#text-area');
@@ -12,8 +11,6 @@ const operators = {
 	divide: (a, b) => a / b,
 };
 
-// const operatorStrings = ['plus', 'minus', 'multiply', 'divide'];
-
 let firstNumber = null;
 let currentNumber = '';
 let currentOperator = null;
@@ -23,8 +20,19 @@ digitButtons.forEach(digitButton => digitButton.addEventListener('click', () => 
 	if (currentOperator === 'equals') {
 		clear();
 	}
-	
-	currentNumber += digitButton.textContent;
+
+	if (digitButton.textContent === '.') {
+		if (currentNumber === '') {
+			currentNumber += '0' + digitButton.textContent;
+		}
+
+		if (!currentNumber.includes('.')) {
+			currentNumber += digitButton.textContent;
+		}
+	} else {
+		currentNumber += digitButton.textContent;
+	}
+
 	textArea.textContent = currentNumber;
 }));
 
