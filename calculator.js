@@ -1,6 +1,6 @@
 const digitButtons = document.querySelectorAll('.digit');
 const operatorButtons = document.querySelectorAll('.operator');
-const equalsButton = document.querySelector('#equals');
+// const equalsButton = document.querySelector('#equals');
 const signButton = document.querySelector('#sign');
 const clearButton = document.querySelector('#clear');
 const textArea = document.querySelector('#text-area');
@@ -17,8 +17,6 @@ const operators = {
 let firstNumber = null;
 let currentNumber = '';
 let currentOperator = null;
-// let tokens = [];
-
 textArea.textContent = '0';
 
 digitButtons.forEach(digitButton => digitButton.addEventListener('click', () => {
@@ -28,8 +26,9 @@ digitButtons.forEach(digitButton => digitButton.addEventListener('click', () => 
 
 operatorButtons.forEach(operatorButton => operatorButton.addEventListener('click', () => {
 	
-	// we resolve the pending operation (if any)
-	if (currentOperator) {
+	if (operatorButton.id === 'equals') {
+		equals();
+	} else if (Object.keys(operators).includes(currentOperator)) {
 		operate(
 			parseFloat(firstNumber),
 			parseFloat(currentNumber),
@@ -44,8 +43,24 @@ operatorButtons.forEach(operatorButton => operatorButton.addEventListener('click
 	currentNumber = '';
 }));
 
-// TODO: this is incredibly redundant, especially in comparison to the operator logic
-equalsButton.addEventListener('click', () => {
+signButton.addEventListener('click', () => {
+	if (currentNumber) {
+		currentNumber = (-1 * parseFloat(currentNumber)).toString();
+		updateDisplay(currentNumber);
+	} else if (firstNumber) {
+		firstNumber = (-1 * parseFloat(firstNumber)).toString();
+		updateDisplay(firstNumber);
+	}
+});
+	
+clearButton.addEventListener('click', () => {
+	firstNumber = null;
+	currentNumber = '';
+	currentOperator = null;
+	textArea.textContent = '0';
+})
+
+function equals() {
 	/*
 	Three cases: 
 		1. equal is pressed with no current operator
@@ -71,31 +86,14 @@ equalsButton.addEventListener('click', () => {
 	}
 
 	currentNumber = '';
-});
-
-signButton.addEventListener('click', () => {
-	if (currentNumber) {
-		currentNumber = (-1 * parseFloat(currentNumber)).toString();
-		updateDisplay(currentNumber);
-	} else if (firstNumber) {
-		firstNumber = (-1 * parseFloat(firstNumber)).toString();
-		updateDisplay(firstNumber);
-	}
-});
-	
-clearButton.addEventListener('click', () => {
-	firstNumber = null;
-	currentNumber = '';
-	currentOperator = null;
-	textArea.textContent = '0';
-})
+}
 
 function updateDisplay(value) {
-	textArea.textContent = value;
+	textArea.textContent = value.toString();
 }
 
 function operate(a, b, operator) {
-	firstNumber = parseFloat(operators[operator](a, b)).toFixed(5).replace('.00000', '');
+	firstNumber = Number(operators[operator](a, b).toFixed(5));
 	updateDisplay(firstNumber);
 	currentOperator = null;
 }
