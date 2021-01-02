@@ -7,6 +7,8 @@
 }
 
 body {
+	background-color: #CCC;
+
 	display: flex;
 	flex-direction: column;
 	align-items: center;
