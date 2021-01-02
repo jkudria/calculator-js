@@ -1,8 +1,9 @@
 const digitButtons = document.querySelectorAll('.digit');
 const operatorButtons = document.querySelectorAll('.operator');
 const equalsButton = document.querySelector('#equals');
-const textArea = document.querySelector('#text-area');
+const signButton = document.querySelector('#sign');
 const clearButton = document.querySelector('#clear');
+const textArea = document.querySelector('#text-area');
 
 const operators = {
 	plus: (a, b) => a + b,
@@ -77,6 +78,16 @@ equalsButton.addEventListener('click', () => {
 
 	currentNumber = '';
 });
+
+signButton.addEventListener('click', () => {
+	if (currentNumber) {
+		currentNumber = (-1 * parseFloat(currentNumber)).toString();
+		updateDisplay(currentNumber);
+	} else if (firstNumber) {
+		firstNumber = (-1 * parseFloat(firstNumber)).toString();
+		updateDisplay(firstNumber);
+	}
+});
 	
 clearButton.addEventListener('click', () => {
 	firstNumber = null;
@@ -84,6 +95,10 @@ clearButton.addEventListener('click', () => {
 	currentOperator = null;
 	textArea.textContent = '0';
 })
+
+function updateDisplay(value) {
+	textArea.textContent = value;
+}
 
 function operate(a, b, operator) {
 	return parseFloat(operators[operator](a, b)).toFixed(5).replace('.00000', '');
