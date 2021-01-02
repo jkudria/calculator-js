@@ -30,13 +30,11 @@ operatorButtons.forEach(operatorButton => operatorButton.addEventListener('click
 	
 	// we resolve the pending operation (if any)
 	if (currentOperator) {
-		firstNumber = operate(
+		operate(
 			parseFloat(firstNumber),
 			parseFloat(currentNumber),
 			currentOperator
 		);
-		textArea.textContent = firstNumber;
-		currentOperator = null;
 	} else if (!firstNumber) {
 		// check if firstNumber hasn't already been set by an equals press
 		firstNumber = currentNumber;
@@ -59,21 +57,17 @@ equalsButton.addEventListener('click', () => {
 		// do nothing
 		// TODO: maybe trigger a visual signal that equal was pressed with no result
 	} else if (currentOperator && currentNumber === '') {
-		firstNumber = operate(
+		operate(
 			parseFloat(firstNumber),
 			parseFloat(firstNumber),
 			currentOperator
 		);
-		textArea.textContent = firstNumber;
-		currentOperator = null;
 	} else if (!(currentNumber === '')) {
-		firstNumber = operate(
+		operate(
 			parseFloat(firstNumber),
 			parseFloat(currentNumber),
 			currentOperator
 		);
-		textArea.textContent = firstNumber;
-		currentOperator = null;
 	}
 
 	currentNumber = '';
@@ -101,5 +95,7 @@ function updateDisplay(value) {
 }
 
 function operate(a, b, operator) {
-	return parseFloat(operators[operator](a, b)).toFixed(5).replace('.00000', '');
+	firstNumber = parseFloat(operators[operator](a, b)).toFixed(5).replace('.00000', '');
+	updateDisplay(firstNumber);
+	currentOperator = null;
 }
