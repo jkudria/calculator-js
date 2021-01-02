@@ -20,6 +20,10 @@ let currentOperator = null;
 textArea.textContent = '0';
 
 digitButtons.forEach(digitButton => digitButton.addEventListener('click', () => {
+	if (currentOperator === 'equals') {
+		clear();
+	}
+	
 	currentNumber += digitButton.textContent;
 	textArea.textContent = currentNumber;
 }));
@@ -54,9 +58,7 @@ signButton.addEventListener('click', () => {
 });
 	
 clearButton.addEventListener('click', () => {
-	firstNumber = null;
-	currentNumber = '';
-	currentOperator = null;
+	clear();
 	textArea.textContent = '0';
 })
 
@@ -86,6 +88,12 @@ function equals() {
 	}
 
 	currentNumber = '';
+}
+
+function clear() {
+	firstNumber = null;
+	currentNumber = '';
+	currentOperator = null;
 }
 
 function updateDisplay(value) {
