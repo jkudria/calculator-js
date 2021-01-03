@@ -14,7 +14,7 @@ Live preview [here](https://jkudria.github.io/calculator-js/)
 * [x] highlight operator button to show that its the "active" operator
 * [x] BUG: background color on body not showing up with github pages
 	* wait for cache to update
-* [ ] maybe reduce size of display area
+* [x] maybe reduce size of display area
 
 ### Logic
 * [x] when operator pressed, start new number

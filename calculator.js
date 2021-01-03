@@ -89,10 +89,11 @@ clearButton.addEventListener('click', () => {
 
 function equals() {
 	/*
-	Three cases: 
+	Four cases: 
 		1. equal is pressed with no current operator
 		2. equal is pressed right after operator (without second number) 
 		3. equal is pressed right after num op num sequence
+		4. equal is pressed right after equal (i.e. repeat previous operation with result as new firstNumber)
 	*/
 
 	if (!currentOperator) {
