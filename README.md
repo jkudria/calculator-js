@@ -12,6 +12,9 @@ Live preview [here](https://jkudria.github.io/calculator-js/)
 * [ ] if too many characters in text area, shrink them to fit
 * [ ] some visual indication when equal button pressed (e.g. see macOS calculator)
 * [x] highlight operator button to show that its the "active" operator
+* [x] BUG: background color on body not showing up with github pages
+	* wait for cache to update
+* [ ] maybe reduce size of display area
 
 ### Logic
 * [x] when operator pressed, start new number
@@ -24,4 +27,4 @@ Live preview [here](https://jkudria.github.io/calculator-js/)
 * [x] replace all display updates with function
 * [ ] pressing equals repeatedly should perform last operation with each result as firstNumber
 * [ ] refactor: each button has event listener -> processButton, updateDisplay (??)
-* [ ] divide by 0 should display error
+* [x] divide by 0 should display error

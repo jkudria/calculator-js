@@ -9,7 +9,9 @@ const operators = {
 	plus: (a, b) => a + b,
 	minus: (a, b) => a - b,
 	multiply: (a, b) => a * b,
-	divide: (a, b) => a / b,
+	divide: (a, b) => {
+		b !== 0 ? a / b : 'Cannot dividy by 0!';
+	},
 };
 
 let firstNumber = null;
@@ -114,7 +116,9 @@ function equals() {
 }
 
 function clear() {
-	document.getElementById(currentOperator).style.border = '';
+	if (currentOperator) {
+		document.getElementById(currentOperator).style.border = '';
+	}
 	firstNumber = null;
 	currentNumber = '';
 	currentOperator = null;
@@ -126,7 +130,14 @@ function updateDisplay(value) {
 
 function operate(a, b, operator) {
 	document.getElementById(operator).style.border = '';
-	firstNumber = Number(operators[operator](a, b).toFixed(5));
-	updateDisplay(firstNumber);
+
+	if (b === 0 && operator === 'divide') {
+		updateDisplay('No div by 0!');
+		clear();
+	} else {
+		firstNumber = Number(operators[operator](a, b).toFixed(5));
+		updateDisplay(firstNumber)
+	}
+
 	currentOperator = null;
 }
