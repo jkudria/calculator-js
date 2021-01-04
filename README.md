@@ -15,6 +15,7 @@ Live preview [here](https://jkudria.github.io/calculator-js/)
 * [x] BUG: background color on body not showing up with github pages
 	* wait for cache to update
 * [x] maybe reduce size of display area
+* [ ] change colors on operator/non-digit buttons
 
 ### Logic
 * [x] when operator pressed, start new number
